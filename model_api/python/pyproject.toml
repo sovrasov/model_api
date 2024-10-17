@@ -28,7 +28,6 @@ dependencies = [
     "scipy>=1.5.4",
     "openvino>=2024.0",
     "openvino-dev>=2024.0",
-    "omz_tools @ git+https://github.com/openvinotoolkit/open_model_zoo.git@master#egg=omz_tools&subdirectory=tools/model_tools",
 ]
 
 [project.optional-dependencies]
