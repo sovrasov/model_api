@@ -175,6 +175,7 @@ std::unique_ptr<ResultBase> ModelSSD::postprocessMultipleOutputs(InferenceResult
     const std::vector<std::string> namesWithoutXai = filterOutXai(outputNames);
     const float* boxes = infResult.outputsData[namesWithoutXai[0]].data<float>();
     NumAndStep numAndStep = fromMultipleOutputs(infResult.outputsData[namesWithoutXai[0]].get_shape());
+    std::cout << infResult.outputsData[namesWithoutXai[0]].get_shape() << "\n";
     const int64_t* labels = infResult.outputsData[namesWithoutXai[1]].data<int64_t>();
     const float* scores =
         namesWithoutXai.size() > 2 ? infResult.outputsData[namesWithoutXai[2]].data<float>() : nullptr;
@@ -200,6 +201,7 @@ std::unique_ptr<ResultBase> ModelSSD::postprocessMultipleOutputs(InferenceResult
     float widthScale = scores ? netInputWidth : 1.0f;
     float heightScale = scores ? netInputHeight : 1.0f;
 
+    std::cout << numAndStep.detectionsNum << "\n";
     for (size_t i = 0; i < numAndStep.detectionsNum; i++) {
         float confidence = scores ? scores[i] : boxes[i * numAndStep.objectSize + 4];
 

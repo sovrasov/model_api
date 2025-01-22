@@ -25,6 +25,8 @@ int main(int argc, char* argv[]) try {
     }
 
     cv::Mat image = cv::imread(argv[2]);
+    cv::cvtColor(image, image, cv::COLOR_BGR2RGB);
+
     if (!image.data) {
         throw std::runtime_error{"Failed to read the image"};
     }
@@ -41,6 +43,9 @@ int main(int argc, char* argv[]) try {
                   << std::setw(4) << int(obj.x) << " | " << std::setw(4) << int(obj.y) << " | " << std::setw(4)
                   << int(obj.x + obj.width) << " | " << std::setw(4) << int(obj.y + obj.height) << "\n";
     }
+
+    std::cout << *result << "\n";
+
 } catch (const std::exception& error) {
     std::cerr << error.what() << '\n';
     return 1;

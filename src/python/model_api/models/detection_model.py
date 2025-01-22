@@ -112,6 +112,7 @@ class DetectionModel(ImageModel):
         keep = (detection_result.get_obj_sizes() > box_area_threshold) & (
             detection_result.scores > self.confidence_threshold
         )
+        print(np.sum(keep))
         detection_result.bboxes = detection_result.bboxes[keep]
         detection_result.labels = detection_result.labels[keep]
         detection_result.scores = detection_result.scores[keep]

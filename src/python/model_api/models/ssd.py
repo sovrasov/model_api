@@ -161,9 +161,15 @@ class SSD(DetectionModel):
         return dict_inputs, meta
 
     def postprocess(self, outputs, meta) -> DetectionResult:
+        print(outputs.keys())
+        print(outputs["boxes"].shape, outputs["labels"].shape)
         detections = self._parse_outputs(outputs)
+        print(len(detections))
         self._resize_detections(detections, meta)
+        print(len(detections))
+        print(self.confidence_threshold)
         self._filter_detections(detections, BBOX_AREA_THRESHOLD)
+        print(len(detections))
         self._add_label_names(detections)
         detections.saliency_map = outputs.get(SALIENCY_MAP_NAME, np.ndarray(0))
         detections.feature_vector = outputs.get(FEATURE_VECTOR_NAME, np.ndarray(0))
