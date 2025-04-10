@@ -2,7 +2,9 @@
 # SPDX-License-Identifier: Apache-2.0
 #
 
-set(Python_FIND_VIRTUALENV FIRST)
+if(NOT DEFINED Python3_FIND_VIRTUALENV)
+    set(Python_FIND_VIRTUALENV FIRST)
+endif()
 find_package(Python COMPONENTS Interpreter Development REQUIRED)
 
 execute_process(
@@ -25,3 +27,7 @@ nanobind_add_stub(
     PYTHON_PATH $<TARGET_FILE_DIR:py_model_api>
     DEPENDS py_model_api
 )
+
+if(NOT DEFINED ENABLE_LTO)
+    set(ENABLE_LTO OFF)
+endif()
